@@ -1,6 +1,12 @@
-# -*- coding: utf-8 -*-
 """
 Created on Thu Apr 18 19:36:12 2024
+
+Character made by LPC Character Generator 
+Fire Ball and Enemies made in canva by me
+Sounds: 
+    Free Sound: Fire ball by DWOBoyle
+    Free Sound: Damage by ash_rez
+    Free Sound: Background Music by theoctopus559
 
 @author: Brooklyn
 """
@@ -219,6 +225,12 @@ class Game(simpleGE.Scene):
         
         self.ROWS = 10
         self.COLS = 15
+        
+        pygame.mixer.music.load("backgrndmusic.wav")
+        pygame.mixer.music.play()
+        
+        self.sndShoot = simpleGE.Sound("shoot.wav")
+        self.sndDamage = simpleGE.Sound ("damage.wav")
         #self.loadData()
         
         #self.data = 0
@@ -236,6 +248,7 @@ class Game(simpleGE.Scene):
             if self.player.collidesWith(enemy):
                 enemy.reset()
                 self.player.hitPoints -= 1 
+                self.sndDamage.play()
                 self.lblHealth.text = f" Health: {self.player.hitPoints}"
                 
     
@@ -244,13 +257,14 @@ class Game(simpleGE.Scene):
             for enemy in self.enemy:
                 if magma.collidesWith(enemy):
                     self.score += 1 
+                    self.sndDamage.play()
                     self.lblScore.text = f"Score: {self.score}"
                     enemy.reset()
                     
         self.lblTime.text = f" Time Left: {self.timer.getTimeLeft():.2f}"
         
         if self.player.hitPoints <= 0:
-            self.STOP()
+            self.stop()
             
         def processEvent(self, event):
             if event.type == pygame.KEYDOWN:
@@ -258,7 +272,8 @@ class Game(simpleGE.Scene):
                     self.currentMagma += 1
                     if self.currentMagma >= self.numMagma:
                         self.currentMagma = 0 
-                        self.magma[self.currentMagma].fire ()
+                        self.magma[self.currentMagma].fire()
+                        self.sndShoot.play()
                     
                 
                 
@@ -315,11 +330,14 @@ class Instructions(simpleGE.Scene):
         self.status= "Quit"
         self.score = score 
         
+        pygame.mixer.music.load("backgrndmusic.wav")
+        pygame.mixer.music.play()
+        
         self.Instructions= simpleGE.MultiLabel() 
         self.Instructions.textLines = [
             " In the maze of fiery glow", 
             " Where magma and lava flows", 
-            " We feel the heat on this day", 
+            " We feel the heat on its way",
             " Get through the lava, and save the day",
             " Press arrow keys to move",
             " Press space bar to shoot"
@@ -380,5 +398,6 @@ def main():
         
 if __name__ == "__main__":
     main()
+        
         
         
