@@ -1,0 +1,145 @@
+﻿Brooklyn Rimes
+Magma Maze (Tile Map)
+04/ 18/ 2024 
+Clear the map from lava 
+
+
+Music from free sounds 
+Animation from LPC character generator 
+Enemies, magma ball, and tiles made in canva 
+Sound could not be uploaded to repository because tile was large here’s the link 
+https://freesound.org/people/theoctopus559/sounds/623744/
+
+
+Algorithm/ Psuedocode
+If you do not have pygame installed onto your computer please install
+* The first to classes of my code are mydata() and getPlayData()
+   * Unfortunately I could not get these to work but it does not crash the code 
+   * These are used to load and save a map
+* Set a tile class for the tile map
+   * Initiate to self and scene 
+   * Upload images 
+   * Create state name for tile images 
+   * NOTE PLEASE RESIZE ANY IMAGES TO MAKE FILE SIZE SMALLER OR IT WILL CRASH THE GAME
+   * Set size for tiles and assign numbers 
+      * Numbers are used for map
+   * Set it to state
+   * Create process that will allow tile to change states when you click it 
+   * Inside the process create if statements for the state when it collides with player 
+      * These statements allows the player to change speed on each tile
+* Create a class call magma (or whatever you want your player to shoot) 
+   * Initiate to self, parent and scene 
+      * Parent connects magma to the player 
+   * Set its size 
+   * Set its bound action to hide to it will not show 
+   * Define fire and set it to self 
+      * Set its position to the parent
+      * For moveAngle set it to parent animRow + 1 and multiply by 90 
+         * This allows player to shoot from angles at 90 degrees 
+      * Set fire speed to your liking 
+* Create player class 
+   * Initiate to self and scene 
+   * Set its bound action to stop 
+      * This is supposed to prevent 
+   * Set its position and hit points 
+   * Create a moving animation with a sprite sheet and set its size 
+   * Set the animation’s start column to self 
+   * Set the animation row to self and 2
+   * Set move to self and false 
+   * Set bottom tp self and true 
+   * Set its tileState to 0 
+   * Set process to self 
+      * Dx (delta x) = 0 
+      * Dy (delta y) = 0 
+      * Create if statements for key pressed 
+      * Set the int for animRow
+         * Up = 0
+         * Down = 2
+         * Left = 1
+         * Right = 3
+      * Set up (dy)  and left (dx)  to -moveSpeed 
+      * Set down (dy) and right (dx) to positive moveSpeed 
+      * All move statements should be set to true 
+      * Create if statement for space key press
+         * For magma in scene.magma it should fire 
+         * Space bar allows you to shoot 
+      * Create an if statement for move so when animation moves it copies itself and goes to the next images depending on what keys you press 
+      * Create an else statement for when it is not moving so it will not copy itself 
+* Create a class for enemy 
+   * Initiate to self and scene 
+   * Set its image and size 
+   * Set it to reset()
+   * Set a process for reset
+      * Have edge equal a random.randint (__, ___)
+      * If it hits an edge
+      * Set its y value (self.y = __)
+      * Set its x to a random.randint (__, __)
+      * Set is moveAngle to random.randint (__, __)
+      * Set it speed ( whatever you want it to be)
+* Create labels classes (lbl___) for health, time, and score 
+   * Initiate to self and scene 
+   * Set its background, and foreground colors 
+   * Set its text and position 
+      * For score set text to “Score:  0”
+      * For  time set text to “ Time Left: ___”
+         * Make sure timer equals the simpleGE timer 
+      * For health set text to “ Health: __”
+* Create game class 
+   * Initiate to self and scene 
+   * Set the game caption 
+   * Set tile set to = []
+      * This is for the list that we use for the data map
+   * Set player to equal player (self)
+   * Set timer to equal simpleGE timer 
+   * Set score to equal 0 
+   * Set labels (health, score, time) to equal itself 
+   * Set numEnemy to equal whatever you want 
+      * Have enemies = []
+      * Create a for loop for range of numEnemy 
+      * Append enemy to self 
+   * Set the numMagma to equal [] 
+      * Create food loop for range of numMagma 
+      * Append magam to self and player 
+   * Set the amount of column and rows you want in your tile map 
+   * Used the pygame.mixer to load and play your background music 
+   * For snd.shoot/ damage use the simpleGE sound and upload your music 
+   * Initiate data to self 
+   * Create sprite list 
+   * Create process function and initiate it to self 
+      * This is used for the collisions of enemy to player and magme to enemy
+      * For enemy and player collison have the enemy reset and deduct points from player health 
+         * sndDamage sound to player when collision happens 
+         * Set health text to equal  f" Health: {self.player.hitPoints}"
+      * For magama and enemy collision have the score increase by 1
+         * sndDamage sound to play when collisions happens 
+         * Set its score text to  f"Score: {self.score}"
+         * Set enemy to reset 
+      * Set the time label text to   f" Time Left: {self.timer.getTimeLeft():.2f}"
+      * Create if statement for when hitpoints are below zero the came will stop 
+   * Create an event process function for shooting
+   * Create def function for tile map and return its data
+   * Create a def function for map so while its running it will stay on and if you quit it will close and set run to false 
+      * Update pygame display 
+   * Create def function to draw tiles and to screen and pass it 
+   * Create get def getData function that will load data (tile map) on to screen 
+      * Depending on how big your tiles are code will be different so follow what i have coded 
+* Create an instruction class
+   * Create Instruction screen 
+      * Set image, status, and score 
+      * Set a multilabel text for instructions 
+      * Create a previous score using lblScore 
+      * Create button for play and quit 
+      * Create sprite list for instruction screen 
+   * Intiate process for quit and play buttons 
+      * If play button/ up arrow key is clicked it will play game 
+      * If quit button/ down arrow key is clicked it will stop game 
+   * Set up the game and start main loop
+      * Set up game caption/ title 
+      * Set while loop for instruction object 
+         * While user clicks play instructions will appear 
+         * If not it will quit 
+      * Create a statement that checks if the script is being run as the main program
+      * When you run game intro screen will appear 
+      * Previous score will be set to 0 because you haven’t played 
+      * You can click the up arrow key or play label to start 
+      * You can click the down arrow key or quit label to quit game
